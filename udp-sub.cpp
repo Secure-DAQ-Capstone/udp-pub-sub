@@ -19,7 +19,7 @@ public:
         {
             throw std::runtime_error(formatErrorMessage("Error opening Socket"));
         }
-        max_buffer_size = max_buffer_size;
+        this->max_buffer_size = max_buffer_size;
         // Bind the socket to an address and port
         sockaddr_in server_addr;
         memset(&server_addr, 0, sizeof(server_addr));
@@ -47,6 +47,7 @@ public:
         {
             throw std::runtime_error(formatErrorMessage("Error receiving message"));
         }
+        buffer[recv_bytes] = '\0';
         std::string received_message(buffer, recv_bytes);
         std::cout << "Received message" << std::endl;
         return received_message;

@@ -19,7 +19,7 @@ public:
         {
             throw std::runtime_error(formatErrorMessage("Error opening Socket"));
         }
-        max_buffer_size = max_buffer_size;
+        this->max_buffer_size = max_buffer_size;
 
         // Bind the socket to an address and port
         memset(&server_addr, 0, sizeof(server_addr));
