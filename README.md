@@ -17,3 +17,10 @@ make run: Runs the simple test.
 make run_pub: Runs the publisher.
 make run_sub: Runs the subscriber.
 ```
+
+## IP Addresses, UDP and Binding
+
+### Binding
+
+- Subscriber: Binds the socket to a local IP address and Port number. This allows the socket to listen for incoming UDP packets on that address and port without polling.
+- Publisher: Typically does not need to bind the socket to a specific IP and port. Instead, you specify the destination IP address and port when sending data.

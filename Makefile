@@ -5,17 +5,26 @@ CXXFLAGS = -std=c++11
 SIMPLE_TEST_TARGET = simple_udp_test
 SIMPLE_TEST_SOURCES = test.cpp udp-pub.cpp udp-sub.cpp
 
+
 # Continuous test
 TEST_TARGET = udp_test
 TEST_SOURCES = test_role.cpp udp-pub.cpp udp-sub.cpp
 
-all: $(SIMPLE_TEST_TARGET) $(TEST_TARGET)
+# Get broadcast address
+BROAD_TARGET = get_broadcast_add
+BROAD_SOURCES = get_broadcast_add.cpp
+
+
+all: $(SIMPLE_TEST_TARGET) $(TEST_TARGET) $(BROAD_TARGET)
 
 $(SIMPLE_TEST_TARGET): $(SIMPLE_TEST_SOURCES)
 	$(CXX) $(CXXFLAGS) -o $(SIMPLE_TEST_TARGET) $(SIMPLE_TEST_SOURCES)
 
 $(TEST_TARGET): $(TEST_SOURCES)
 	$(CXX) $(CXXFLAGS) -o $(TEST_TARGET) $(TEST_SOURCES)
+
+$(BROAD_TARGET): $(BROAD_SOURCES)
+	$(CXX) $(CXXFLAGS) -o $(BROAD_TARGET) $(BROAD_SOURCES)
 
 test: $(SIMPLE_TEST_TARGET)
 	./$(SIMPLE_TEST_TARGET)
@@ -31,5 +40,8 @@ clean:
 
 run: $(SIMPLE_TEST_TARGET)
 	./$(SIMPLE_TEST_TARGET)
+
+broad: $(BROAD_TARGET)
+	./$(BROAD_TARGET)
 
 .PHONY: all clean run run_pub run_sub

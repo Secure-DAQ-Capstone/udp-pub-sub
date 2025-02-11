@@ -20,7 +20,11 @@ public:
             throw std::runtime_error(formatErrorMessage("Error opening Socket"));
         }
         this->max_buffer_size = max_buffer_size;
-        // Bind the socket to an address and port
+
+        /**
+         * Bind the socket to an address and port.
+         * We expect this to bind to the computers local IP and port
+         */
         sockaddr_in server_addr;
         memset(&server_addr, 0, sizeof(server_addr));
         server_addr.sin_family = AF_INET;
@@ -38,11 +42,16 @@ public:
     {
         // Receive message
         char buffer[max_buffer_size];
-        sockaddr_in client_addr;
-        socklen_t client_len = sizeof(client_addr);
+        
+        /**
+         * Define a socket address that will be populated with the senders address
+         * by the recvfrom syscall
+         */
+        sockaddr_in senders_addr;
+        socklen_t sender_len = sizeof(senders_addr);
 
         ssize_t recv_bytes = recvfrom(socket_fd, buffer, sizeof(buffer) - 1, 0,
-                                      (sockaddr *)&client_addr, &client_len);
+                                      (sockaddr *)&senders_addr, &sender_len);
         if (recv_bytes < 0)
         {
             throw std::runtime_error(formatErrorMessage("Error receiving message"));

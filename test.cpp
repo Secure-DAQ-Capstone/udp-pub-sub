@@ -7,12 +7,14 @@ int main()
     {
         // Define the address and port
         in_addr_t address = inet_addr("127.0.0.1");
-        int port = 8080;
+        int port_sub = 8080;
+        int port_pub = 8080;
+
         size_t buffer_size = 1024;
 
         // Create publisher and subscriber
-        UDPPub publisher(buffer_size, port, address);
-        UDPSub subscriber(buffer_size, port, address);
+        UDPPub publisher(buffer_size, port_pub, address);
+        UDPSub subscriber(buffer_size, port_sub, address);
 
         // Send a message
         std::string message = "Hello, UDP!";
